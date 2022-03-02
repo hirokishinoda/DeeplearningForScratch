@@ -39,6 +39,13 @@ def OR(x1, x2):
     else:
         return 1
 
+def XOR(x1, x2):
+    out1 = NAND(x1, x2)
+    out2 = OR(x1, x2)
+    out3 = AND(out1, out2)
+
+    return out3
+
 if __name__ == '__main__':
 
     print("-- AND gate --")
@@ -52,10 +59,16 @@ if __name__ == '__main__':
     print(NAND(0, 1))
     print(NAND(1, 0))
     print(NAND(1, 1))
-    
+
     print("-- OR gate --")
     print(OR(0, 0))
     print(OR(0, 1))
     print(OR(1, 0))
     print(OR(1, 1))
+
+    print("-- XOR gate --")
+    print(XOR(0, 0))
+    print(XOR(0, 1))
+    print(XOR(1, 0))
+    print(XOR(1, 1))
 
