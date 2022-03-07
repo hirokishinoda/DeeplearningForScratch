@@ -1,3 +1,4 @@
+from email.mime import multipart
 import numpy as np
 
 def numerical_diff(f, x):
@@ -8,7 +9,9 @@ def numerical_gradient(f, x):
     h = 1e-4
     grad = np.zeros_like(x)
 
+    it = np.nditer(x, flags=['multi_index'], op_flags=['readwrite'])
     for idx in range(x.size):
+        idx = it.multi_index
         tmp_val = x[idx]
 
         x[idx] = tmp_val + h
@@ -34,7 +37,7 @@ def gradient_descent(f, init_x, lr=0.01, step_num=100):
 def function1(x):
     return x[0]**2 + x[1]**2
 
-#if __name__ == '__main__':
-#    init_x = np.array([-3.0, 4.0])
-#    print(gradient_descent(function1, init_x=init_x, lr=0.1, step_num=100))
-#    print(numerical_gradient(function1, np.array([3.0, 4.0])))
+if __name__ == '__main__':
+   init_x = np.array([-3.0, 4.0])
+   print(gradient_descent(function1, init_x=init_x, lr=0.1, step_num=100))
+   print(numerical_gradient(function1, np.array([3.0, 4.0])))
