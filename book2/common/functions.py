@@ -13,12 +13,15 @@ def identity_function(x):
     return x
 
 def softmax(x):
-    c = np.max(x) # オーバーフロー対策
-    exp_x = np.exp(x - c)
-    sum_exp_x = np.sum(exp_x)
-    y = exp_x / sum_exp_x
+    if x.ndim == 2:
+        x = x - x.max(axis=1, keepdims=True)
+        x = np.exp(x)
+        x /= x.sum(axis=1, keepdims=True)
+    elif x.ndim == 1:
+        x = x - np.max(x)
+        x = np.exp(x) / np.sum(np.exp(x))
 
-    return y
+    return x
 
 def mean_squared_error(y, t):
     return 0.5 * np.sum((y - t)**2)
